@@ -7,7 +7,7 @@ const App = () => {
     display: 'flex',
     flexDirection: 'column',
     gap: 2,
-    paddingTop: 2,
+    padding: 2,
   };
 
   return (

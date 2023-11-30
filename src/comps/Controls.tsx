@@ -1,4 +1,11 @@
-import { Button, Slider, Stack, TextField, Tooltip } from '@mui/material';
+import {
+  Button,
+  Slider,
+  Stack,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import React from 'react';
 import { useAppHooks } from '../context/hooks';
 
@@ -128,6 +135,7 @@ const Controls = () => {
         </Button>
 
         <Stack direction={'row'} alignItems={'center'} gap={2}>
+          {/* Adjust max time intervale */}
           <TextField
             label='Time Range (s)'
             type='number'
@@ -135,6 +143,8 @@ const Controls = () => {
             value={timingRange}
             disabled={!channels ? true : false}
           />
+
+          {/* Adjust Time interval */}
           <Slider
             sx={{
               width: 200,
@@ -148,6 +158,7 @@ const Controls = () => {
             valueLabelDisplay='auto'
             disabled={!channels ? true : false}
           />
+          <Typography>every {timing} sec</Typography>
         </Stack>
       </Stack>
     </>

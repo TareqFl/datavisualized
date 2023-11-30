@@ -69,6 +69,11 @@ export const AppSettingsContext = ({ children }: Props) => {
         paper: mode === 'light' ? '#1b252f' : 'transparent',
       },
     },
+    typography: {
+      allVariants: {
+        color: mode === 'light' ? '#333' : 'white',
+      },
+    },
   });
 
   // hooks

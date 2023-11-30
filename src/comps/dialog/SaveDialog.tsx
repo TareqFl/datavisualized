@@ -66,8 +66,8 @@ const SaveDialog = () => {
 
   return (
     <Stack gap={2}>
-      <Typography>File: Data{`(v1)`}</Typography>
-      <Typography>number of Channels: {channels}</Typography>
+      <Typography color={'white'}>File: Data{`(v1)`}</Typography>
+      <Typography color={'white'}>number of Channels: {channels}</Typography>
       <>
         {saving === false && <AwaitingSave />}
         {saving === null && <LoadingStatus />}

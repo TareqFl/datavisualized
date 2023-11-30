@@ -8,7 +8,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Box, Paper, Slider, Stack, Typography } from '@mui/material';
 import { useAppHooks } from '../../context/hooks';
 
 ChartJs.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -24,43 +24,44 @@ const DisplayChart = ({ channel }: { channel: number }) => {
   } = useAppHooks();
 
   const [values, setValues] = React.useState<number[]>([1]);
-  const [colors, setColors] = React.useState<string[]>(['#2B2A4C']);
+  const [colors, setColors] = React.useState<string>('#2B2A4C');
   const [channelData, setChannelData] = React.useState<{
     channel: number;
     data: number[];
   }>({ channel, data: values });
+
+  // Generate unqiue color for each chart
   React.useEffect(() => {
+    const randomData = Math.round(Math.random() * 10);
+    // less than 3
+    if (randomData < 2) {
+      return setColors(() => '#2B2A4C');
+    }
+    // between 3 and 6
+    if (randomData >= 3 && randomData <= 5) {
+      return setColors(() => '#EA906C');
+    }
+
+    // between 6 8
+    if (randomData >= 6 && randomData <= 8) {
+      return setColors(() => '#B31312');
+    }
+    if (randomData >= 9 && randomData <= 10) {
+      return setColors(() => '#FA7070');
+    }
+  }, []);
+
+  React.useEffect(() => {
+    // start or stop generating data to charts
     let timer: number;
     if (startStop) {
       timer = setInterval(() => {
         const randomData = Math.round(Math.random() * 10);
         setValues((prev) => [...prev, randomData]);
-        // less than 3
-        if (randomData < 3) {
-          setChannelData((prev) => ({
-            ...prev,
-            data: [...prev.data, randomData],
-          }));
-
-          return setColors((prev) => [...prev, '#2B2A4C']);
-        }
-        // between 3 and 6
-        if (randomData >= 3 && randomData <= 6) {
-          setChannelData((prev) => ({
-            ...prev,
-            data: [...prev.data, randomData],
-          }));
-          return setColors((prev) => [...prev, '#EA906C']);
-        }
-
-        // greater than 6
         setChannelData((prev) => ({
           ...prev,
           data: [...prev.data, randomData],
         }));
-        return setColors((prev) => [...prev, '#B31312']);
-        // Do nothing if paused
-        return;
       }, timing * 1000);
     }
 
@@ -95,20 +96,6 @@ const DisplayChart = ({ channel }: { channel: number }) => {
       setChannelsData(loadedData);
       setChannelData({ channel, data: newValues });
       setValues(() => newValues);
-      newValues.filter((randomData) => {
-        if (randomData < 3) {
-          return setColors((prev) => [...prev, '#2B2A4C']);
-        }
-        // between 3 and 6
-        else if (randomData >= 3 && randomData <= 6) {
-          return setColors((prev) => [...prev, '#EA906C']);
-        }
-
-        // greater than 6
-        else if (randomData > 6) {
-          return setColors((prev) => [...prev, '#B31312']);
-        }
-      });
     }
   }, [loadedData]);
 
@@ -139,16 +126,51 @@ const DisplayChart = ({ channel }: { channel: number }) => {
     },
   };
 
+  const [zoom, setZoom] = React.useState<number | number[]>(1);
+  const handleZoom = (_event: Event, newValue: number | number[]) => {
+    setZoom(newValue as number);
+  };
   return (
     <Paper sx={{ borderRadius: 2, padding: 2 }}>
       <Stack direction={'row'} gap={4}>
-        <Box flex={0.9}>
-          <Bar data={data} options={options} />
+        <Box width={'75%'} overflow={'auto'} padding={2}>
+          <Bar
+            data={data}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                y: {
+                  grid: {
+                    color: '#333',
+                  },
+                  suggestedMax: zoom,
+                },
+              },
+            }}
+          />
         </Box>
-        <Box>
-          <Typography>Channel: {channel}</Typography>
-          <Typography>data: {values.length}</Typography>
-        </Box>
+        <Stack direction={'column'} gap={2}>
+          <Box>
+            <Typography>Channel: {channel}</Typography>
+            <Typography>data: {values.length}</Typography>
+          </Box>
+          <Typography textAlign={'center'}>Scale</Typography>
+          <Slider
+            sx={{
+              width: 200,
+            }}
+            color='secondary'
+            size='small'
+            aria-label='TimeChange'
+            value={zoom}
+            onChange={handleZoom}
+            min={1}
+            max={50}
+            step={1}
+            valueLabelDisplay='auto'
+          />
+        </Stack>
       </Stack>
     </Paper>
   );

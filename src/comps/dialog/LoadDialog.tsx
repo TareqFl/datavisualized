@@ -39,7 +39,7 @@ const LoadDialog = () => {
 
   return (
     <Box>
-      <Typography>Files:</Typography>
+      <Typography color={'white'}>Files:</Typography>
       <Stack
         direction={'row'}
         justifyContent={'center'}
@@ -51,13 +51,14 @@ const LoadDialog = () => {
         {data.map((savedChannels: Channels, index: number) => {
           return (
             <Button
+              variant='outlined'
               key={index}
               onClick={() => {
                 setLoadedData(savedChannels);
                 setChannels(savedChannels.length);
                 setData(false);
               }}>
-              File v:{index}
+              <Typography> data v{index}</Typography>
             </Button>
           );
         })}

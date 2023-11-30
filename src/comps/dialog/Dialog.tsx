@@ -20,11 +20,6 @@ export default function BasicModal() {
   const { saveDialog, setSaveDialog, loadDialog, setLoadDialog } =
     useAppHooks();
 
-  const handleClose = () => {
-    setSaveDialog(false);
-    setLoadDialog(false);
-  };
-
   return (
     <div>
       <Modal
