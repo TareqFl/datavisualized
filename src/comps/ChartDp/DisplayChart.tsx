@@ -8,7 +8,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Box, Button, Paper, Slider, Stack, Typography } from '@mui/material';
+import { Box, Paper, Slider, Stack, Typography } from '@mui/material';
 import { useAppHooks } from '../../context/hooks';
 
 ChartJs.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -167,35 +167,32 @@ const DisplayChart = ({ channel }: { channel: number }) => {
         </Box>
 
         {/* Numerical Data */}
-        <Stack direction={'row'} alignItems={'center'} gap={2}>
-          <Button>
-            <Typography
-              sx={{
-                color: 'white',
+        <Stack direction={'row'} alignItems={'center'} gap={0.5}>
+          <Typography
+            sx={{
+              color: 'white',
 
-                fontSize: {
-                  xs: '8px',
-                  sm: '10px',
-                  md: '14px',
-                },
-              }}>
-              Channel: {channel}
-            </Typography>
-          </Button>
-          <Button>
-            <Typography
-              sx={{
-                color: 'white',
+              fontSize: {
+                xs: '8px',
+                sm: '10px',
+                md: '14px',
+              },
+            }}>
+            Channel: {channel}
+          </Typography>
 
-                fontSize: {
-                  xs: '8px',
-                  sm: '10px',
-                  md: '14px',
-                },
-              }}>
-              data: {values.length}
-            </Typography>
-          </Button>
+          <Typography
+            sx={{
+              color: 'white',
+
+              fontSize: {
+                xs: '8px',
+                sm: '10px',
+                md: '14px',
+              },
+            }}>
+            data: {values.length}
+          </Typography>
         </Stack>
       </Stack>
 

@@ -82,8 +82,7 @@ const Controls = () => {
           direction={'row'}
           alignItems={'center'}
           justifyContent={'start'}
-          gap={2}
-          flexWrap={'wrap'}>
+          gap={2}>
           <Tooltip title={'Save Data'}>
             <span>
               <Button
@@ -158,7 +157,16 @@ const Controls = () => {
             valueLabelDisplay='auto'
             disabled={!channels ? true : false}
           />
-          <Typography>every {timing} sec</Typography>
+          <Typography
+            sx={{
+              fontSize: {
+                xs: '8px',
+                sm: '10px',
+                md: '14px',
+              },
+            }}>
+            every {timing} sec
+          </Typography>
         </Stack>
       </Stack>
     </>
