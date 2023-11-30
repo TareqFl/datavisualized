@@ -88,7 +88,7 @@ const DisplayChart = ({ channel }: { channel: number }) => {
     };
   }, [startStop, timing]);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (loadedData && loadedData[channel] && loadedData[channel].data) {
       let newValues = loadedData[channel].data;
 
@@ -111,10 +111,6 @@ const DisplayChart = ({ channel }: { channel: number }) => {
       });
     }
   }, [loadedData]);
-
-  React.useEffect(() => {
-    setChannelData({ channel, data: values });
-  }, [values]);
 
   const data = {
     labels: values,

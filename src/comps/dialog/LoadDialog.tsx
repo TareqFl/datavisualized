@@ -8,6 +8,7 @@ import LoadingComponent from './LoadingComponent';
 const LoadDialog = () => {
   const { setLoadedData, setChannels, setLoadDialog } = useAppHooks();
 
+  // load data and control modal
   const [data, setData] = React.useState<Channels[] | null | false>(null);
 
   React.useEffect(() => {
