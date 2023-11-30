@@ -76,7 +76,7 @@ const Controls = () => {
         flex={1}
         direction={'row'}
         alignItems={'center'}
-        justifyContent={'end'}>
+        justifyContent={'space-between'}>
         <Stack
           flex={1}
           direction={'row'}
@@ -144,7 +144,7 @@ const Controls = () => {
             disabled={!channels ? true : false}
           />
 
-          {/* Adjust Time interval */}
+          {/* Adjust Time */}
           <Slider
             sx={{
               width: 200,

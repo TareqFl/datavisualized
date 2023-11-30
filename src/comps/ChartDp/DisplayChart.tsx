@@ -8,7 +8,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Box, Paper, Slider, Stack, Typography } from '@mui/material';
+import { Box, Button, Paper, Slider, Stack, Typography } from '@mui/material';
 import { useAppHooks } from '../../context/hooks';
 
 ChartJs.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
@@ -135,16 +135,24 @@ const DisplayChart = ({ channel }: { channel: number }) => {
 
   return (
     <Paper sx={{ borderRadius: 2, padding: 2 }}>
-      <Stack direction={'row'} gap={4} justifyContent={'space-between'}>
-        <Box>
-          <Bar data={data} options={options} />
-        </Box>
-        <Stack direction={'column'} gap={2}>
-          <Box>
-            <Typography>Channel: {channel}</Typography>
-            <Typography>data: {values.length}</Typography>
-          </Box>
-          <Typography textAlign={'center'}>Scale</Typography>
+      <Stack
+        direction={'row'}
+        alignItems={'center'}
+        justifyContent={'space-between'}
+        gap={4}>
+        <Typography
+          textAlign={'start'}
+          sx={{
+            color: 'white',
+            fontSize: {
+              xs: '8px',
+              sm: '10px',
+              md: '14px',
+            },
+          }}>
+          Scale
+        </Typography>
+        <Box flex={1}>
           <Slider
             color='secondary'
             size='small'
@@ -156,8 +164,44 @@ const DisplayChart = ({ channel }: { channel: number }) => {
             step={1}
             valueLabelDisplay='auto'
           />
+        </Box>
+
+        {/* Numerical Data */}
+        <Stack direction={'row'} alignItems={'center'} gap={2}>
+          <Button>
+            <Typography
+              sx={{
+                color: 'white',
+
+                fontSize: {
+                  xs: '8px',
+                  sm: '10px',
+                  md: '14px',
+                },
+              }}>
+              Channel: {channel}
+            </Typography>
+          </Button>
+          <Button>
+            <Typography
+              sx={{
+                color: 'white',
+
+                fontSize: {
+                  xs: '8px',
+                  sm: '10px',
+                  md: '14px',
+                },
+              }}>
+              data: {values.length}
+            </Typography>
+          </Button>
         </Stack>
       </Stack>
+
+      <Box>
+        <Bar data={data} options={options} />
+      </Box>
     </Paper>
   );
 };
