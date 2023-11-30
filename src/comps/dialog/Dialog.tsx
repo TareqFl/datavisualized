@@ -9,11 +9,20 @@ const style: SxProps = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: {
+    xs: 200,
+    sm: 400,
+  },
   bgcolor: '#0f1924',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  overflowY: 'auto',
+  fontSize: {
+    xs: '8px',
+    sm: '10px',
+    md: '14px',
+  },
 };
 
 export default function BasicModal() {

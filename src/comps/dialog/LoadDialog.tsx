@@ -1,7 +1,7 @@
 import React from 'react';
 import { Channels } from '../../utils/types';
 import { loadData } from '../../utils/utils';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { useAppHooks } from '../../context/hooks';
 import LoadingComponent from './LoadingComponent';
 
@@ -38,7 +38,7 @@ const LoadDialog = () => {
   }
 
   return (
-    <Box>
+    <>
       <Typography color={'white'}>Files:</Typography>
       <Stack
         direction={'row'}
@@ -58,7 +58,17 @@ const LoadDialog = () => {
                 setChannels(savedChannels.length);
                 setData(false);
               }}>
-              <Typography> data v{index}</Typography>
+              <Typography
+                sx={{
+                  fontSize: {
+                    xs: '8px',
+                    sm: '10px',
+                    md: '14px',
+                  },
+                }}>
+                {' '}
+                data v{index}
+              </Typography>
             </Button>
           );
         })}
@@ -66,7 +76,7 @@ const LoadDialog = () => {
       <Button fullWidth onClick={() => setLoadDialog(false)}>
         Cancel
       </Button>
-    </Box>
+    </>
   );
 };
 
