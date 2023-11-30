@@ -6,14 +6,14 @@ export function saveData(DATA: Channels) {
   const data = getItem();
   if (!data) {
     const stringValue = JSON.stringify([DATA]);
-    console.log(DATA);
+
     return setItem(stringValue);
   }
 
   const newData = JSON.parse(data);
 
   newData.push(DATA);
-  console.log(newData);
+
   setItem(JSON.stringify(newData));
 }
 

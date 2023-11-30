@@ -64,11 +64,6 @@ const DisplayChart = ({ channel }: { channel: number }) => {
       }, timing * 1000);
     }
 
-    // reset  when all channels removed
-    if (channels === 0) {
-      setChannelsData(null);
-    }
-
     if (channels === 1) {
       setChannelsData([{ channel, data: values }]);
     }
@@ -94,7 +89,7 @@ const DisplayChart = ({ channel }: { channel: number }) => {
   }, [startStop, timing]);
 
   React.useEffect(() => {
-    if (loadedData) {
+    if (loadedData && loadedData[channel] && loadedData[channel].data) {
       let newValues = loadedData[channel].data;
 
       setChannelsData(loadedData);
@@ -105,13 +100,12 @@ const DisplayChart = ({ channel }: { channel: number }) => {
           return setColors((prev) => [...prev, '#2B2A4C']);
         }
         // between 3 and 6
-        if (randomData >= 3 && randomData <= 6) {
+        else if (randomData >= 3 && randomData <= 6) {
           return setColors((prev) => [...prev, '#EA906C']);
         }
 
         // greater than 6
-
-        if (randomData > 6) {
+        else if (randomData > 6) {
           return setColors((prev) => [...prev, '#B31312']);
         }
       });

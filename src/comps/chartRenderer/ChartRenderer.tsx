@@ -23,18 +23,24 @@ const ChartRenderer = () => {
     // reset  when all channels removed
     if (channels === 0) {
       setChannelsData(null);
+      setLoadedData(null);
     }
 
+    // render charts data from local
     if (channels && loadedData) {
       setRender(loadedData);
     }
-    if (loadedData && channels && channels > loadedData.length) {
+
+    // render new charts
+    if (loadedData && channels > loadedData.length) {
       let newLoad = loadedData;
       newLoad.push({ channel: loadedData.length, data: [1] });
       setRender(newLoad);
       setLoadedData(loadedData);
     }
-    if (loadedData && channels && channels < loadedData.length) {
+
+    // remove a chart from render
+    if (loadedData && channels < loadedData.length) {
       let newLoad = loadedData;
       newLoad.pop();
       setRender(newLoad);

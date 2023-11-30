@@ -47,15 +47,13 @@ const LoadDialog = () => {
         flexWrap={'wrap'}
         maxHeight={200}
         overflow={'auto'}>
-        {data.map((channels: Channels, index: number) => {
+        {data.map((savedChannels: Channels, index: number) => {
           return (
             <Button
               key={index}
               onClick={() => {
-                console.log(channels);
-                setLoadedData(channels);
-
-                setChannels(channels.length);
+                setLoadedData(savedChannels);
+                setChannels(savedChannels.length);
                 setData(false);
               }}>
               File v:{index}
