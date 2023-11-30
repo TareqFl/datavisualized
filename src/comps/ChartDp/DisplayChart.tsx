@@ -30,9 +30,10 @@ const DisplayChart = ({ channel }: { channel: number }) => {
     data: number[];
   }>({ channel, data: values });
   React.useEffect(() => {
-    const timer = setInterval(() => {
-      const randomData = Math.round(Math.random() * 10);
-      if (startStop) {
+    let timer: number;
+    if (startStop) {
+      timer = setInterval(() => {
+        const randomData = Math.round(Math.random() * 10);
         setValues((prev) => [...prev, randomData]);
         // less than 3
         if (randomData < 3) {
@@ -58,19 +59,19 @@ const DisplayChart = ({ channel }: { channel: number }) => {
           data: [...prev.data, randomData],
         }));
         return setColors((prev) => [...prev, '#B31312']);
-      }
-      // Do nothing if paused
-      return;
-    }, timing * 1000);
+        // Do nothing if paused
+        return;
+      }, timing * 1000);
+    }
 
     // reset  when all channels removed
     if (channels === 0) {
       setChannelsData(null);
     }
 
-    // if (channels === 1) {
-    //   setChannelsData([{ channel, data: [1] }]);
-    // }
+    if (channels === 1) {
+      setChannelsData([{ channel, data: values }]);
+    }
 
     if (channels > 1 && channelsData !== null) {
       channelsData.forEach((ch, inx) => {
@@ -117,8 +118,12 @@ const DisplayChart = ({ channel }: { channel: number }) => {
     }
   }, [loadedData]);
 
+  React.useEffect(() => {
+    setChannelData({ channel, data: values });
+  }, [values]);
+
   const data = {
-    labels: colors,
+    labels: values,
     datasets: [
       {
         label: `Channel ${channel}`,

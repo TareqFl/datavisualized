@@ -29,7 +29,7 @@ const SaveDialog = () => {
     // Handlers
     const handleSave = () => {
       if (channelsData !== null) {
-        // saveData(channelsData);
+        saveData(channelsData);
         console.log(channelsData);
         return setSaving(null);
       }
