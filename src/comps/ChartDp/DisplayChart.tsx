@@ -25,6 +25,8 @@ const DisplayChart = ({ channel }: { channel: number }) => {
 
   const [values, setValues] = React.useState<number[]>([1]);
   const [colors, setColors] = React.useState<string>('#2B2A4C');
+  const [zoom, setZoom] = React.useState<number | number[]>(1);
+
   const [channelData, setChannelData] = React.useState<{
     channel: number;
     data: number[];
@@ -99,6 +101,10 @@ const DisplayChart = ({ channel }: { channel: number }) => {
     }
   }, [loadedData]);
 
+  const handleZoom = (_event: Event, newValue: number | number[]) => {
+    setZoom(newValue as number);
+  };
+
   const data = {
     labels: values,
     datasets: [
@@ -122,33 +128,16 @@ const DisplayChart = ({ channel }: { channel: number }) => {
         grid: {
           color: '#333',
         },
+        suggestedMax: zoom,
       },
     },
   };
 
-  const [zoom, setZoom] = React.useState<number | number[]>(1);
-  const handleZoom = (_event: Event, newValue: number | number[]) => {
-    setZoom(newValue as number);
-  };
   return (
     <Paper sx={{ borderRadius: 2, padding: 2 }}>
-      <Stack direction={'row'} gap={4}>
-        <Box width={'75%'} overflow={'auto'} padding={2}>
-          <Bar
-            data={data}
-            options={{
-              responsive: true,
-              maintainAspectRatio: false,
-              scales: {
-                y: {
-                  grid: {
-                    color: '#333',
-                  },
-                  suggestedMax: zoom,
-                },
-              },
-            }}
-          />
+      <Stack direction={'row'} gap={4} justifyContent={'space-between'}>
+        <Box>
+          <Bar data={data} options={options} />
         </Box>
         <Stack direction={'column'} gap={2}>
           <Box>
@@ -157,9 +146,6 @@ const DisplayChart = ({ channel }: { channel: number }) => {
           </Box>
           <Typography textAlign={'center'}>Scale</Typography>
           <Slider
-            sx={{
-              width: 200,
-            }}
             color='secondary'
             size='small'
             aria-label='TimeChange'

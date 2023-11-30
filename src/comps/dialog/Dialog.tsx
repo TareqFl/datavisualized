@@ -17,8 +17,7 @@ const style: SxProps = {
 };
 
 export default function BasicModal() {
-  const { saveDialog, setSaveDialog, loadDialog, setLoadDialog } =
-    useAppHooks();
+  const { saveDialog, loadDialog } = useAppHooks();
 
   return (
     <div>
